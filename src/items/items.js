@@ -12,17 +12,15 @@ export default class Items extends Component {
       items: starterItems
     }
   }
-  handleScoreChange(passedItem) {
-    console.log(passedItem)
+  enhanceItem(passedItem) {
     const newScore = passedItem.enhancement + 1;
-    console.log(newScore)
-    const items = this.state.items.slice();
+    const items = this.state.items.slice(); /* creates a copy of state that we can change */
     items.forEach((item) => {
       if (item.id === passedItem.id) {
         return item.enhancement = newScore
-      }});
+      }
+    });
     this.setState(items);
-    console.log(items)
   };
   render() {
     return (
@@ -30,18 +28,19 @@ export default class Items extends Component {
         <h3 data-testid="title">Items</h3>
         {
           this.state.items.map(item => {
-            const onClick = this.handleScoreChange.bind(this,item) 
+            const onClick = this.enhanceItem.bind(this, item)
             /* this line above binds the item with the onClick Function */
+            /* notice below, I had to put a return since I added the above code */
             return (
               <div key={item.id}>
                 <div data-testid="item">{item.name}</div>
                 <div data-testid="enhancement">{item.enhancement}</div>
+                {/* We can use the "data=testid" as a way to grab an item, since it won't impact the html any */}
                 <button onClick={onClick}>Enhance</button>
               </div>
-            )}
-          )
-        };
-      </div>
+            )
+          })};
+        </div>
 
     );
   };

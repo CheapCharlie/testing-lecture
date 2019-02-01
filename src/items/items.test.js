@@ -12,7 +12,7 @@ describe('displays the title', () => {
   it('displays the title', () => {
     const component = render(<Items />);
     const title = component.getByTestId('title')
-    expect(title).toHaveTextContent(/items/i)
+    expect(title).toHaveTextContent(/items/i) /* using regex again */
   })
 });
 
@@ -26,9 +26,10 @@ test('displays the first item', () => {
 
 test('enhancement button increases score', () => {
   const component = render(<Items />);
-  const button = component.getByText(/enhance/i);
+  const button = component.getByText(/enhance/i); 
+  /* here we just used the text since we know that enhance will be inside the button */
   fireEvent.click(button);
-  const score = component.getByTestId('enhancement');
+  const score = component.getByTestId('enhancement'); 
   /* This order of score is important here, since we don't want it to come until after click */
   expect(score).toHaveTextContent('5')
 })
